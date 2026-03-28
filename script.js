@@ -13,11 +13,20 @@ for (let i = 0; i < 8; i++) {
         square.dataset.row = i;
         square.dataset.col = j;
 
-        square.addEventListener("click", (e) => {
-            let row = Number(e.target.dataset.row);
-            let col = Number(e.target.dataset.col);
+        // square.addEventListener("click", (e) => {
+        //     let row = Number(e.target.dataset.row);
+        //     let col = Number(e.target.dataset.col);
 
-            console.log([row, col]);
-        });
+        //     console.log([row, col]);
+        // });
     }
 }
+
+board.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("square")) return;
+
+    let row = Number(e.target.dataset.row);
+    let col = Number(e.target.dataset.col);
+
+    // console.log([row, col]);
+});
