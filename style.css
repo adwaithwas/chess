@@ -16,10 +16,20 @@ body {
     width: fit-content;
 }
 
-.square{
+.square {
     width: 60px;
     height: 60px;
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: pink;
+}
+
+.circle {
+    background-color: pink;
+    border-radius: 50%;
 }
 
 /* #_______________________________________________________________# */
