@@ -1,5 +1,11 @@
 const board = document.querySelector(".board");
 
+function removeBorder(){
+    document.querySelectorAll(".square").forEach(sq => {
+        sq.classList.remove("selected");
+    });
+}
+
 for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
         const square = document.createElement("div");
@@ -33,36 +39,36 @@ const boardState = Array(8).fill(null).map(() => Array(8).fill(null));
 
 // filling black side pieces
 boardState[0] = [
-    {type: "rook", color: "black"},
-    {type: "knight", color: "black"},
-    {type: "bishop", color: "black"},
-    {type: "queen", color: "black"},
-    {type: "king", color: "black"},
-    {type: "bishop", color: "black"},
-    {type: "knight", color: "black"},
-    {type: "rook", color: "black"}
+    { type: "rook", color: "black" },
+    { type: "knight", color: "black" },
+    { type: "bishop", color: "black" },
+    { type: "queen", color: "black" },
+    { type: "king", color: "black" },
+    { type: "bishop", color: "black" },
+    { type: "knight", color: "black" },
+    { type: "rook", color: "black" }
 ]
 
-boardState[1] = Array(8).fill(null).map(() => ({type: "pawn", color: "black"}));
+boardState[1] = Array(8).fill(null).map(() => ({ type: "pawn", color: "black" }));
 
 // filling white side pieces
-boardState[6] = Array(8).fill(null).map(() => ({type: "pawn", color: "white"}));
+boardState[6] = Array(8).fill(null).map(() => ({ type: "pawn", color: "white" }));
 
 boardState[7] = [
-    {type: "rook", color: "white"},
-    {type: "knight", color: "white"},
-    {type: "bishop", color: "white"},
-    {type: "queen", color: "white"},
-    {type: "king", color: "white"},
-    {type: "bishop", color: "white"},
-    {type: "knight", color: "white"},
-    {type: "rook", color: "white"}
+    { type: "rook", color: "white" },
+    { type: "knight", color: "white" },
+    { type: "bishop", color: "white" },
+    { type: "queen", color: "white" },
+    { type: "king", color: "white" },
+    { type: "bishop", color: "white" },
+    { type: "knight", color: "white" },
+    { type: "rook", color: "white" }
 ]
 
 // #_______________________________________________________________#
 // #_______________________________________________________________#
 
-function getSymbol(piece){
+function getSymbol(piece) {
     const symbols = {
         pawn: "P",
         rook: "R",
@@ -75,7 +81,7 @@ function getSymbol(piece){
     return piece.color === "white" ? symbols[piece.type] : symbols[piece.type].toLowerCase();
 }
 
-function renderBoard(){
+function renderBoard() {
     const squares = document.querySelectorAll(".square");
     squares.forEach(square => {
         let row = Number(square.dataset.row);
@@ -83,8 +89,8 @@ function renderBoard(){
 
         let piece = boardState[row][col];
         square.textContent = "";
-
-        if(piece){
+        
+        if (piece) {
             square.textContent = getSymbol(piece);
         }
     })
@@ -92,12 +98,38 @@ function renderBoard(){
 
 renderBoard();
 
+let selected = null;
 board.addEventListener("click", (e) => {
     if (!e.target.classList.contains("square")) return;
-
+    
     let row = Number(e.target.dataset.row);
     let col = Number(e.target.dataset.col);
 
+    if(selected && selected.row === row && selected.col === col){
+        selected = null;
+        removeBorder();
+        return;
+    };
+    
+    if (!selected) {
+        if (!boardState[row][col]) return;
+        selected = { row, col };
+        e.target.classList.add("selected");
+        return;
+    }
+
+    let from = selected;
+    let to = {row, col};
+
+    
+    boardState[to.row][to.col] = boardState[from.row][from.col];
+    boardState[from.row][from.col] = null;
+    selected = null;
+
+    removeBorder();
+    
     console.log([row, col]);
     console.log(boardState[row][col]);
+
+    renderBoard();
 });
