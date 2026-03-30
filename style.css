@@ -42,11 +42,11 @@ body {
 
 .white {
     /* background-color: #f0d9b5; */
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(252, 252, 252);
 }
 
 .white:hover {
-    background-color: rgb(234, 205, 235);
+    background-color: rgb(250, 202, 252);
 
 }
 
@@ -56,6 +56,5 @@ body {
 }
 
 .black:hover {
-    background-color: #271c25;
-
+    background-color: #4c003e;
 }
