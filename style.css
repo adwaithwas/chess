@@ -34,7 +34,7 @@ body {
 
 .selected {
     box-shadow: inset 0 0 0 5px hotpink;
-    transition: 10s;
+    transition: 0.2s;
 }
 /* #_______________________________________________________________# */
 /*                             COLORS                                */

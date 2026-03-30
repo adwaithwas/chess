@@ -98,7 +98,7 @@ function renderBoard() {
 
 renderBoard();
 
-let selected = null;
+let selected = null; let selectedPiece = null;
 board.addEventListener("click", (e) => {
     if (!e.target.classList.contains("square")) return;
     
@@ -115,8 +115,17 @@ board.addEventListener("click", (e) => {
         if (!boardState[row][col]) return;
         selected = { row, col };
         e.target.classList.add("selected");
+        selectedPiece = boardState[row][col];
         return;
     }
+
+    selectedPiece = selected ? boardState[selected.row][selected.col] : null;
+
+    let toPiece = boardState[row][col], fromPiece = selectedPiece;
+    if(toPiece && fromPiece && toPiece.color === fromPiece.color) return; // prevents black from killing black and vica versa
+    
+    
+
 
     let from = selected;
     let to = {row, col};
