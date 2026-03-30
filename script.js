@@ -124,13 +124,14 @@ board.addEventListener("click", (e) => {
     let toPiece = boardState[row][col], fromPiece = selectedPiece;
     if(toPiece && fromPiece && toPiece.color === fromPiece.color) return; // prevents black from killing black and vica versa
     
-    
+    if(fromPiece.type === "rook"){
+        if(row !== selected.row && col !== selected.col) return;
+    }
 
 
     let from = selected;
     let to = {row, col};
 
-    
     boardState[to.row][to.col] = boardState[from.row][from.col];
     boardState[from.row][from.col] = null;
     selected = null;
